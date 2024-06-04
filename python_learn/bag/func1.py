@@ -1,0 +1,4 @@
+
+def factor() :
+    print("factor")
+
