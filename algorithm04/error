@@ -1,0 +1,5 @@
+Clang-Tidy：复制参数“array”
+ 每次调用，但仅用作常量引用;考虑将其作为常量引用
+
+Clang-Tidy：使用 new 初始化时使用 auto，以避免重复类型名称
+在模板中：由于限定符不兼容，不允许将类型为“const TreeNode *”类型的值的引用绑定到“TreeNode *”类型的值
