@@ -1,0 +1,5 @@
+# ninja log v5
+12	2636	7478971204155933	CMakeFiles/test_9_13.dir/main.cpp.obj	beb1a7bf4fddb21f
+2664	2860	7478971206308675	test_9_13.exe	d3b6ac15dfccd7ec
+2	69	7479316644481425	CMakeFiles/test_9_13.dir/test1.cpp.obj	5b311686b9074d
+74	165	7479316645403112	test_9_13.exe	c17209bd6b6cd815
