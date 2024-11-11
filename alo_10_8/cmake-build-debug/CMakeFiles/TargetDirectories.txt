@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 E:/c_c++_code/alo_10_8/cmake-build-debug/CMakeFiles/alo_10_8.dir
 E:/c_c++_code/alo_10_8/cmake-build-debug/CMakeFiles/edit_cache.dir
 E:/c_c++_code/alo_10_8/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+=======
+E:/c_c++_code/alo_10_8/cmake-build-debug/CMakeFiles/alo_10_8.dir
+E:/c_c++_code/alo_10_8/cmake-build-debug/CMakeFiles/edit_cache.dir
+E:/c_c++_code/alo_10_8/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+>>>>>>> 287ed1cf6f14d333f9f42b8671d471175f848a62
