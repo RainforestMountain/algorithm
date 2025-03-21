@@ -3,50 +3,32 @@
 
 using namespace std;
 
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-
 class Solution {
 public:
-    TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q) {
-        set<TreeNode *> p_nodes;
-        set<TreeNode *> q_nodes;
-        getPath(root, p, p_nodes);
-        getPath(root, q, q_nodes);
-        for (auto it = q_nodes.end(); it != q_nodes.begin(); it--) {
-            if (p_nodes.find(*it) != p_nodes.end()) {
-                return *it;
+    int minSubArrayLen(int target, vector<int> &nums) {
+        int n = nums.size();
+        vector<int> prefix(n + 1);
+        prefix[1] = nums[0];
+        for (int i = 1; i < n; i++) {
+            prefix[i + 1] = prefix[i] + nums[i];
+        }
+        int left = 1;
+        int right = 1;
+        int len = 0x3f3f3f3f;
+        for (; right <= n;) {
+            while (left <= right && prefix[right] - prefix[left - 1] >= target) {
+                len = min(len, right - left + 1);
+                left++;
             }
+            right++;
         }
-        if (p_nodes.find(*q_nodes.begin()) != p_nodes.end()) {
-            return *q_nodes.begin();
-        }
-        return nullptr;
-    };
-
-    bool getPath(TreeNode *root, TreeNode *&p, set<TreeNode *> &nodes) {
-        if (root == nullptr) {
-            return false;
-        }
-        if (root == p) {
-            nodes.insert(root);
-            return true;
-        }
-        bool ans = getPath(root->left, p, nodes);
-        ans = ans | getPath(root->right, p, nodes);
-        if (ans) {
-            nodes.insert(root);
-        }
-        return ans;
+        return len == 0x3f3f3f3f ? 0 : len;
     }
 };
 
 int main() {
-
+    vector<int> nums = {1,4,4};
+    Solution solution = Solution();
+    cout << solution.minSubArrayLen(4, nums) << "\n";
     return 0;
 }
