@@ -1,69 +1,50 @@
-package test1;
-
-
-import java.util.ArrayList;
-import java.util.List;
-
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode(int x) {
-        val = x;
-    }
-}
-
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Solution {
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        lists[0] = new ArrayList<>();
-        lists[1] = new ArrayList<>();
-        dfs(root, p);
-        pos++;
-        dfs(root, q);
-        TreeNode result = null;
-        for (int i = 0, j = 0; i < lists[0].size() && j < lists[1].size(); i++, j++) {
-            if (lists[0].get(i) == lists[1].get(j)) {
-                result = lists[0].get(i);
-                break;
+    public int orangesRotting(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int fresh = 0;
+        Queue<int[]> queue = new LinkedList<>();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 2) {
+                    queue.add(new int[]{i, j});
+                }
+                if (grid[i][j] == 1) {
+                    fresh++;
+                }
             }
         }
-        System.out.println("p:");
-        for (TreeNode node : lists[0]) {
-            System.out.print(node.val + " ");
+        //统计最大步长
+        int res = 0;
+        //不过最后结果fresh为0,才是有效
+        int[] dx = {-1, 1, 0, 0};
+        int[] dy = {0, 0, -1, 1};
+
+        int step = 0;
+        while (!queue.isEmpty()) {
+            //整体扩散， bfs
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                int[] cur = queue.poll();
+                for (int t = 0; t < 4; t++) {
+                    int nx = cur[0] + dx[t];
+                    int ny = cur[1] + dy[t];
+                    if (nx >= 0 && nx < m && ny >= 0 && ny < n && grid[nx][ny] == 1) {
+                        queue.add(new int[]{nx, ny});
+                        grid[nx][ny] = 2;
+                        fresh--;
+                    }
+                }
+            }
+            step++;
         }
-        System.out.println("\nq:");
-        for (TreeNode node : lists[1]) {
-            System.out.print(node.val + " ");
+        res = Math.max(res, step - 1);
+        if (fresh > 0) {
+            res = -1;
         }
-        return result;
+        return res;
     }
-
-    public List<TreeNode>[] lists = new List[2];
-    public int pos = 0;
-
-    public int dfs(TreeNode root, TreeNode target) {
-        if (root == target) {
-            lists[pos].add(target);
-            return 1;
-        }
-        if (root == null) {
-            return 0;
-        }
-        int res1 = dfs(root.left, target);
-        int res2 = dfs(root.right, target);
-
-        if (res1 == 1) {
-            lists[pos].add(root);
-            return 1;
-        } else if (res2 == 1) {
-            lists[pos].add(root);
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-
 }
