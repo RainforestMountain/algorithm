@@ -1,5 +1,9 @@
 package test2;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 class ListNode {
     int val;
     ListNode next;
@@ -21,26 +25,36 @@ public class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
         //两两一组
         //归并排序
-
-        return null;
+        List<ListNode> nlist = new ArrayList<>();
+        nlist.addAll(Arrays.asList(lists));
+        mergeSort(lists, 0, nlist.size() - 1, true);
+        return lists[0];
     }
 
     /**
      * 归并排序
      * 去向下展开分治，直到是0个或者1个或者2个， 然后开始向上合并
+     *
      * @param lists
      * @param left
      * @param right
+     * @param tag true是左， false是右
      */
-    private void mergeSort(ListNode[] lists, int left, int right) {
-        if (left + 1 >= right) {
+    private void mergeSort(ListNode[] lists, int left, int right, boolean tag) {
+        if (left >= right) {
             return;
         }
         int mid = (left + right) >> 1;
-
-
-
-
+        mergeSort(lists, left, mid, true);
+        mergeSort(lists, mid + 1, right, false);
+        ListNode tmp = merge(lists[left], lists[right]);
+        if (tag) {
+            lists[left] = tmp;
+            lists[right] = tmp;
+        } else {
+            lists[left] = tmp;
+            lists[right] = tmp;
+        }
     }
 
     private ListNode merge(ListNode h1, ListNode h2) {
@@ -82,9 +96,13 @@ public class Solution {
         ListNode h2 = new ListNode(1);
         h2.next = new ListNode(3);
         h2.next.next = new ListNode(4);
+
+        ListNode h3 = new ListNode(2);
+        h3.next = new ListNode(6);
+
         Solution solution = new Solution();
-        ListNode h = solution.merge(h1, h2);
-        ListNode cur = h;
+        ListNode[] lists = {h1, h2, h3};
+        ListNode cur = solution.mergeKLists(lists);
         while (cur != null) {
             System.out.print(cur.val + " ");
             cur = cur.next;
